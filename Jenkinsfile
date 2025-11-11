@@ -9,17 +9,18 @@ pipeline {
  stage('Checkout') {
  steps { checkout scm } // lit le même repo que le job
  }
- stage('Docker Build') {
+ stage('Docker Build') {//creation de l'image li hiya monapp
  steps {
  bat 'docker version'
  bat "docker build -t %IMAGE%:%TAG% ."
  }
  }
- stage('Smoke Test') {
+ stage('Smoke Test') {// test lel etat basique 
  steps {
+  //5ater 9a3din ne5dmou b windows
  bat """
  docker rm -f monapp_test 2>nul || ver > nul
- docker run -d --name monapp_test -p 8081:80 %IMAGE%:%TAG%
+ docker run -d --name monapp_test -p 8082:80 %IMAGE%:%TAG%
  ping -n 3 127.0.0.1 > nul
  curl -I http://localhost:8081 | find "200 OK"
  docker rm -f monapp_test
@@ -28,7 +29,7 @@ pipeline {
  }
  stage('Push (Docker Hub)') {
  steps {
- withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
+ withCredentials([usernamePassword(credentialsId: '12',
  usernameVariable: 'USER',
 passwordVariable: 'PASS')]) {
  bat """
