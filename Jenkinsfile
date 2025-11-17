@@ -1,4 +1,4 @@
-alpipeline {
+pipeline {
  agent any
  options { timestamps() }
  environment {
@@ -29,9 +29,9 @@ alpipeline {
  }
  stage('Push (Docker Hub)') {
  steps {
- withCredentials([usernamePassword(credentialsId: '1',
+ withCredentials([usernamePassword(credentialsId: '27',
  usernameVariable: 'elkamelnagham',
-passwordVariable: 'yachadlya123')]) {
+ passwordVariable: 'yachadlya123')]) {
  bat """
  echo %PASS% | docker login -u %USER% --password-stdin
  docker tag %IMAGE%:%TAG% %IMAGE%:latest
